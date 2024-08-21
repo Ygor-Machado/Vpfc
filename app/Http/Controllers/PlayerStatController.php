@@ -16,7 +16,7 @@ class PlayerStatController extends Controller
     {
         $stats = PlayerStat::with('player')->get();
 
-        return view('stats.index', compact('stats'));
+        return view('admin.stats.index', compact('stats'));
     }
 
     /**
@@ -24,7 +24,7 @@ class PlayerStatController extends Controller
      */
     public function create()
     {
-        return view('stats.create');
+        return view('admin.stats.create');
     }
 
     /**
@@ -36,7 +36,7 @@ class PlayerStatController extends Controller
 
         PlayerStat::create($data);
 
-        return redirect()->route('stats.index');
+        return redirect()->route('admin.stats.index');
     }
 
     /**
@@ -44,7 +44,7 @@ class PlayerStatController extends Controller
      */
     public function show(PlayerStat $stat)
     {
-        return view('stats.show', compact('stat'));
+        return view('admin.stats.show', compact('stat'));
     }
 
     /**
@@ -52,7 +52,7 @@ class PlayerStatController extends Controller
      */
     public function edit(PlayerStat $playerStat)
     {
-        return view('stats.edit', compact('playerStat'));
+        return view('admin.stats.edit', compact('playerStat'));
     }
 
     /**
@@ -64,7 +64,7 @@ class PlayerStatController extends Controller
 
         $playerStat->update($data);
 
-        return redirect()->route('stats.index');
+        return redirect()->route('admin.stats.index');
     }
 
     /**
@@ -74,6 +74,6 @@ class PlayerStatController extends Controller
     {
         $playerStat->delete();
 
-        return redirect()->route('stats.index');
+        return redirect()->route('admin.stats.index');
     }
 }

@@ -16,7 +16,7 @@ class PlayerController extends Controller
     {
         $players = Player::all();
 
-        return view('players.index', compact('players'));
+        return view('admin.players.index', compact('players'));
     }
 
     /**
@@ -24,7 +24,7 @@ class PlayerController extends Controller
      */
     public function create()
     {
-        return view('players.create');
+        return view('admin.players.create');
     }
 
     /**
@@ -36,7 +36,7 @@ class PlayerController extends Controller
 
         Player::create($data);
 
-        return redirect()->route('players.index');
+        return redirect()->route('admin.players.index');
     }
 
     /**
@@ -44,7 +44,7 @@ class PlayerController extends Controller
      */
     public function show(Player $player)
     {
-        return view('players.show', compact('player'));
+        return view('admin.players.show', compact('player'));
     }
 
     /**
@@ -52,7 +52,7 @@ class PlayerController extends Controller
      */
     public function edit(Player $player)
     {
-        return view('players.edit', compact('player'));
+        return view('admin.players.edit', compact('player'));
     }
 
     /**

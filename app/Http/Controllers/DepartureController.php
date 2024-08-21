@@ -16,7 +16,7 @@ class DepartureController extends Controller
     {
         $departures = Departure::all();
 
-        return view('departures.index', compact('departures'));
+        return view('admin.departures.index', compact('departures'));
     }
 
     /**
@@ -24,7 +24,7 @@ class DepartureController extends Controller
      */
     public function create()
     {
-        return view('departures.create');
+        return view('admin.departures.create');
     }
 
     /**
@@ -36,7 +36,7 @@ class DepartureController extends Controller
 
         Departure::create($data);
 
-        return redirect()->route('departures.index');
+        return redirect()->route('admin.departures.index');
     }
 
     /**
@@ -44,7 +44,7 @@ class DepartureController extends Controller
      */
     public function show(Departure $departure)
     {
-        return view('departures.show', compact('departure'));
+        return view('admin.departures.show', compact('departure'));
     }
 
     /**
@@ -52,7 +52,7 @@ class DepartureController extends Controller
      */
     public function edit(Departure $departure)
     {
-        return view('departures.edit', compact('departure'));
+        return view('admin.departures.edit', compact('departure'));
     }
 
     /**
@@ -64,7 +64,7 @@ class DepartureController extends Controller
 
         $departure->update($data);
 
-        return redirect()->route('departures.index');
+        return redirect()->route('admin.departures.index');
     }
 
     /**
@@ -74,6 +74,6 @@ class DepartureController extends Controller
     {
         $departure->delete();
 
-        return redirect()->route('departures.index');
+        return redirect()->route('admin.departures.index');
     }
 }
