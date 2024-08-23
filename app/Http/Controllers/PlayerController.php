@@ -16,7 +16,7 @@ class PlayerController extends Controller
     {
         $players = Player::all();
 
-        return view('admin.players.index', compact('players'));
+        return view('players.index', compact('players'));
     }
 
     /**
