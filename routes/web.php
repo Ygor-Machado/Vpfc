@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\DepartureController;
 use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\PlayerStatController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 
@@ -25,6 +27,8 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     route::resource('/players', PlayerController::class);
+    Route::resource('/departures', DepartureController::class);
+    route::resource('/playerstats', PlayerStatController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

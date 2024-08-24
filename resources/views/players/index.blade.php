@@ -1,9 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-        sei la só da certo
+        <h1>Jogadores</h1>
     </x-slot>
-
-
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -31,17 +29,28 @@
                 <th scope="col" class="px-6 py-3">
                     <span class="sr-only">Edit</span>
                 </th>
+                <th scope="col" class="px-6 py-3">
+                    <span class="sr-only">Edit</span>
+                </th>
             </tr>
             </thead>
 
             <tbody>
             @foreach($players as $player)
                 <tr>
-                    <td>{{ $player->name }}</td>
-                    <td>{{ $player->number }}</td>
-                    <td>{{ $player->position }}</td>
+                    <td class="px-6 py-3">{{ $player->name }}</td>
+                    <td class="px-6 py-3">{{ $player->number }}</td>
+                    <td class="px-6 py-3">{{ $player->position }}</td>
                     <td class="px-6 py-4 text-right">
-                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                        <a href="{{route('players.edit', ['player' => $player->id])}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                        <form action="{{route('players.destroy', ['player' => $player->id])}}" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar este jogador?');">
+                        @csrf
+                            @method('DELETE')
+                            <button class="font-medium text-blue-600 dark:text-red-500 hover:underline">Deletar</button>
+                        </form>
+
                     </td>
                 </tr>
             @endforeach

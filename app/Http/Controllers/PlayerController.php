@@ -24,19 +24,19 @@ class PlayerController extends Controller
      */
     public function create()
     {
-        return view('admin.players.create');
+        return view('players.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(PlayerStoreRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->validated();
+        $data = $request->all();
 
         Player::create($data);
 
-        return redirect()->route('admin.players.index');
+        return redirect()->route('players.index');
     }
 
     /**
@@ -44,7 +44,7 @@ class PlayerController extends Controller
      */
     public function show(Player $player)
     {
-        return view('admin.players.show', compact('player'));
+        return view('players.show', compact('player'));
     }
 
     /**
@@ -52,15 +52,15 @@ class PlayerController extends Controller
      */
     public function edit(Player $player)
     {
-        return view('admin.players.edit', compact('player'));
+        return view('players.edit', compact('player'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(PlayerUpdateRequest $request, Player $player)
+    public function update(Request $request, Player $player)
     {
-        $data = $request->validated();
+        $data = $request->all();
 
         $player->update($data);
 
