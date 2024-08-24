@@ -12,16 +12,28 @@
         @method('PUT')
         <div class="mt-10 grid gap-6 mb-6 md:grid-cols-2">
             <div>
-                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome</label>
-                <input name="name" type="text" value="{{$player->name}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                <x-form.label>Nome</x-form.label>
+                <x-form.input-store
+                    type="text"
+                    name="name"
+                    value="{{$player->name}}"
+                />
             </div>
             <div>
-                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Número</label>
-                <input name="number" type="text" value="{{$player->number}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                <x-form.label>Número</x-form.label>
+                <x-form.input-store
+                    type="number"
+                    name="number"
+                    value="{{$player->number}}"
+                />
             </div>
             <div class="mb-6">
-                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Posição</label>
-                <input name="position" type="text" value="{{$player->position}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                <x-form.label>Posição</x-form.label>
+                <x-form.input-store
+                    type="text"
+                    name="position"
+                    value="{{$player->position}}"
+                />
             </div>
         </div>
 
