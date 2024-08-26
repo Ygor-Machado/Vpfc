@@ -28,8 +28,8 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::resource('/players', PlayerController::class);
     Route::resource('/departures', DepartureController::class);
-//    Route::get('/departures/finished', [DepartureController::class, 'finished'])->name('departures.finished');
     Route::get('/finished', [DepartureController::class, 'finished'])->name('departures.finished');
+    Route::get('/upcoming', [DepartureController::class, 'upcoming'])->name('departures.upcoming');
     Route::resource('/stats', PlayerStatController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

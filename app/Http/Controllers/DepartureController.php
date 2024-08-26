@@ -25,6 +25,12 @@ class DepartureController extends Controller
         return view('departures.finished', compact('departures'));
     }
 
+    public function upcoming()
+    {
+        $departures = Departure::where('is_finished', false)->get();
+        return view('departures.upcoming', compact('departures'));
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -37,10 +43,12 @@ class DepartureController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Departure $departure)
+    public function store(DepartureStoreRequest $request, Departure $departure)
     {
 
-        $data = $request->all();
+        $data = $request->validated();
+
+        $data['is_finished'] = $request->has('is_finished');
 
         if ($request->hasFile('home_team_logo') && $request->file('home_team_logo')->isValid()) {
             $data['home_team_logo'] = $this->uploadImage($request->file('home_team_logo'));
@@ -74,9 +82,11 @@ class DepartureController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Departure $departure)
+    public function update(DepartureUpdateRequest $request, Departure $departure)
     {
-        $data = $request->all();
+        $data = $request->validated();
+
+        $data['is_finished'] = $request->has('is_finished');
 
         if ($request->hasFile('home_team_logo') && $request->file('home_team_logo')->isValid()) {
             $this->deleteOldImage(public_path('img/logos/' . $departure->home_team_logo));
@@ -89,6 +99,7 @@ class DepartureController extends Controller
         }
 
         $departure->update($data);
+
         return redirect()->route('departures.index');
     }
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\card;
 
 use Illuminate\View\Component;
 
-class GameCard extends Component
+class Departures extends Component
 {
     public $matchDate;
     public $location;
@@ -29,6 +29,6 @@ class GameCard extends Component
 
     public function render()
     {
-        return view('components.game-card');
+        return view('components.departures');
     }
 }

@@ -4,7 +4,7 @@
     </x-slot>
 
     <div class="container mx-auto p-4">
-        <h1 class="text-white text-xl mb-4">Partidas Concluidas</h1>
+        <h1 class="text-white text-xl mb-4">Próximas partidas</h1>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             @foreach($departures as $departure)
                 <x-card.departures

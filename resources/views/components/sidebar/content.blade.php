@@ -62,14 +62,6 @@
         </x-slot>
 
         <x-sidebar.sublink
-            title="Mostrar partidas já concluidas"
-            href="{{ route('departures.index') }}"
-        />
-        <x-sidebar.sublink
-            title="Mostrar próximas partidas"
-            href="{{ route('departures.index') }}"
-        />
-        <x-sidebar.sublink
             title="Mostrar Partidas"
             href="{{ route('departures.index') }}"
         />
@@ -77,7 +69,14 @@
             title="Criar Partidas"
             href="{{ route('departures.create') }}"
         />
-
+        <x-sidebar.sublink
+            title="Mostrar partidas já concluidas"
+            href="{{ route('departures.finished') }}"
+        />
+        <x-sidebar.sublink
+            title="Mostrar próximas partidas"
+            href="{{ route('departures.upcoming') }}"
+        />
     </x-sidebar.dropdown>
 
 </x-perfect-scrollbar>
