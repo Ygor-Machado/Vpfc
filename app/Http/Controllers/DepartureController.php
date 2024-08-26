@@ -16,7 +16,7 @@ class DepartureController extends Controller
     {
         $departures = Departure::all();
 
-        return view('admin.departures.index', compact('departures'));
+        return view('departures.index', compact('departures'));
     }
 
     /**
@@ -24,19 +24,55 @@ class DepartureController extends Controller
      */
     public function create()
     {
-        return view('admin.departures.create');
+        return view('departures.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(DepartureStoreRequest $request)
+    public function store(Request $request, Departure $departure)
     {
-        $data = $request->validated();
 
-        Departure::create($data);
+        $departure->away_team_name = $request->away_team_name;
+        $departure->home_team_name = $request->home_team_name;
+        $departure->away_abreviation = $request->away_abreviation;
+        $departure->home_abreviation = $request->home_abreviation;
+        $departure->match_date = $request->match_date;
+        $departure->location = $request->location;
+        $departure->home_team_score = $request->home_team_score;
+        $departure->away_team_score = $request->away_team_score;
 
-        return redirect()->route('admin.departures.index');
+        if($request->hasFile('home_team_logo') && $request->file('home_team_logo')->isValid()) {
+
+            $requestImage = $request->home_team_logo;
+
+            $extension = $requestImage->extension();
+
+            $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+
+            $requestImage->move(public_path('img/logos'), $imageName);
+
+            $departure->home_team_logo = $imageName;
+
+        }
+
+        if($request->hasFile('away_team_logo') && $request->file('away_team_logo')->isValid()) {
+
+            $requestImage = $request->away_team_logo;
+
+            $extension = $requestImage->extension();
+
+            $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+
+            $requestImage->move(public_path('img/logos'), $imageName);
+
+            $departure->away_team_logo = $imageName;
+
+        }
+
+        $departure->save();
+
+        return redirect()->route('departures.index');
     }
 
     /**
@@ -44,7 +80,7 @@ class DepartureController extends Controller
      */
     public function show(Departure $departure)
     {
-        return view('admin.departures.show', compact('departure'));
+        return view('departures.show', compact('departure'));
     }
 
     /**
@@ -52,7 +88,7 @@ class DepartureController extends Controller
      */
     public function edit(Departure $departure)
     {
-        return view('admin.departures.edit', compact('departure'));
+        return view('departures.edit', compact('departure'));
     }
 
     /**
@@ -64,7 +100,7 @@ class DepartureController extends Controller
 
         $departure->update($data);
 
-        return redirect()->route('admin.departures.index');
+        return redirect()->route('departures.index');
     }
 
     /**
@@ -74,6 +110,6 @@ class DepartureController extends Controller
     {
         $departure->delete();
 
-        return redirect()->route('admin.departures.index');
+        return redirect()->route('departures.index');
     }
 }

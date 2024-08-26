@@ -1,11 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-        <h1>Criar Jogadores</h1>
+        <h1>Editar Jogadores</h1>
     </x-slot>
-
-    <x-form.label>
-        Nome
-    </x-form.label>
 
     <form action="{{route('players.update', ['player' => $player->id ])}}" method="POST">
         @csrf

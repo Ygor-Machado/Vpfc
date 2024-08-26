@@ -30,11 +30,27 @@ class PlayerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Player $player)
     {
-        $data = $request->all();
+        $player->name = $request->name;
+        $player->position = $request->position;
+        $player->number = $request->number;
 
-        Player::create($data);
+        if($request->hasFile('image') && $request->file('image')->isValid()) {
+
+            $requestImage = $request->image;
+
+            $extension = $requestImage->extension();
+
+            $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+
+            $requestImage->move(public_path('img/players'), $imageName);
+
+            $player->image = $imageName;
+
+        }
+
+        $player->save();
 
         return redirect()->route('players.index');
     }

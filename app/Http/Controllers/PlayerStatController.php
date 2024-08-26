@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PlayerStatStoreRequest;
 use App\Http\Requests\PlayerUpdateRequest;
+use App\Models\Player;
 use App\Models\PlayerStat;
 use Illuminate\Http\Request;
 
@@ -24,15 +25,17 @@ class PlayerStatController extends Controller
      */
     public function create()
     {
-        return view('stats.create');
+        $players = Player::all();
+
+        return view('stats.create', compact('players'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(PlayerStatStoreRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->validated();
+        $data = $request->all();
 
         PlayerStat::create($data);
 
@@ -50,19 +53,20 @@ class PlayerStatController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(PlayerStat $playerStat)
+    public function edit(PlayerStat $stat)
     {
-        return view('stats.edit', compact('playerStat'));
+        $players = Player::all();
+        return view('stats.edit', compact('stat', 'players'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(PlayerUpdateRequest $request, PlayerStat $playerStat)
+    public function update(Request $request, PlayerStat $stat)
     {
-        $data = $request->validated();
+        $data = $request->all()();
 
-        $playerStat->update($data);
+        $stat->update($data);
 
         return redirect()->route('stats.index');
     }
@@ -70,9 +74,9 @@ class PlayerStatController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PlayerStat $playerStat)
+    public function destroy(Request $request, PlayerStat $stat)
     {
-        $playerStat->delete();
+        $stat->delete();
 
         return redirect()->route('stats.index');
     }

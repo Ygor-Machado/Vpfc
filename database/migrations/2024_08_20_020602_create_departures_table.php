@@ -14,11 +14,18 @@ return new class extends Migration
         Schema::create('departures', function (Blueprint $table) {
             $table->id();
 
-            $table->string('opponent');
+            $table->string('away_team_name');
+            $table->string('home_team_name');
+
+            $table->string('away_abreviation');
+            $table->string('home_abreviation');
+
             $table->string('match_date');
             $table->string('location');
+
             $table->string('home_team_logo');
             $table->string('away_team_logo');
+
             $table->integer('home_team_score')->nullable();
             $table->integer('away_team_score')->nullable();
 

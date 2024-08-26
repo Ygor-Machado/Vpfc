@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('assists')->default(0);
             $table->integer('yellow_cards')->default(0);
             $table->integer('red_cards')->default(0);
+            $table->integer('matches_played')->default(0);
 
             $table->timestamps();
         });

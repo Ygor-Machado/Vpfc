@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('position');
             $table->string('number');
-            $table->integer('matches_played')->default(0);
+            $table->string('image')->nullable();
 
             $table->timestamps();
         });

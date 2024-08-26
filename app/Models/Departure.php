@@ -10,9 +10,12 @@ class Departure extends Model
     use HasFactory;
 
     protected $fillable = [
-        'opponent',
         'match_date',
         'location',
+        'home_team_name',
+        'away_team_name',
+        'home_abreviation',
+        'away_abreviation',
         'home_team_logo',
         'away_team_logo',
         'home_team_score',

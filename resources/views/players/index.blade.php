@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h1>Estatísticas</h1>
+        <h1>Jogadores</h1>
     </x-slot>
 
     <x-table.table :headers="['Nome', 'Número', 'Posição','']">

@@ -12,7 +12,8 @@ class Player extends Model
     protected $fillable = [
       'name',
       'position',
-      'number'
+      'number',
+      'image'
     ];
 
     public function stats()

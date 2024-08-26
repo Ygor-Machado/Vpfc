@@ -7,7 +7,7 @@
         Nome
     </x-form.label>
 
-    <form action="{{route('players.store')}}" method="POST">
+    <form action="{{route('players.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
 
             <div class="mt-10 grid gap-6 mb-6 md:grid-cols-2">
