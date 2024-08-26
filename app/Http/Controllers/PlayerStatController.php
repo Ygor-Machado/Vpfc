@@ -64,7 +64,7 @@ class PlayerStatController extends Controller
      */
     public function update(Request $request, PlayerStat $stat)
     {
-        $data = $request->all()();
+        $data = $request->all();
 
         $stat->update($data);
 

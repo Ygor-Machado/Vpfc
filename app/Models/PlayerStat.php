@@ -16,6 +16,7 @@ class PlayerStat extends Model
       'assists',
       'yellow_cards',
       'red_cards',
+      'matches_played',
     ];
 
     public function player()

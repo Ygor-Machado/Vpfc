@@ -20,6 +20,7 @@ class Departure extends Model
         'away_team_logo',
         'home_team_score',
         'away_team_score',
+        'is_finished'
     ];
 
 }

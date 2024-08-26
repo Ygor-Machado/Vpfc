@@ -29,6 +29,8 @@ return new class extends Migration
             $table->integer('home_team_score')->nullable();
             $table->integer('away_team_score')->nullable();
 
+            $table->boolean('is_finished')->default(false);
+
             $table->timestamps();
         });
     }

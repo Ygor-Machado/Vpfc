@@ -19,6 +19,13 @@ class DepartureController extends Controller
         return view('departures.index', compact('departures'));
     }
 
+    public function finished()
+    {
+        $departures = Departure::where('is_finished', true)->get();
+        return view('departures.finished', compact('departures'));
+    }
+
+
     /**
      * Show the form for creating a new resource.
      */
@@ -33,44 +40,17 @@ class DepartureController extends Controller
     public function store(Request $request, Departure $departure)
     {
 
-        $departure->away_team_name = $request->away_team_name;
-        $departure->home_team_name = $request->home_team_name;
-        $departure->away_abreviation = $request->away_abreviation;
-        $departure->home_abreviation = $request->home_abreviation;
-        $departure->match_date = $request->match_date;
-        $departure->location = $request->location;
-        $departure->home_team_score = $request->home_team_score;
-        $departure->away_team_score = $request->away_team_score;
+        $data = $request->all();
 
-        if($request->hasFile('home_team_logo') && $request->file('home_team_logo')->isValid()) {
-
-            $requestImage = $request->home_team_logo;
-
-            $extension = $requestImage->extension();
-
-            $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
-
-            $requestImage->move(public_path('img/logos'), $imageName);
-
-            $departure->home_team_logo = $imageName;
-
+        if ($request->hasFile('home_team_logo') && $request->file('home_team_logo')->isValid()) {
+            $data['home_team_logo'] = $this->uploadImage($request->file('home_team_logo'));
         }
 
-        if($request->hasFile('away_team_logo') && $request->file('away_team_logo')->isValid()) {
-
-            $requestImage = $request->away_team_logo;
-
-            $extension = $requestImage->extension();
-
-            $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
-
-            $requestImage->move(public_path('img/logos'), $imageName);
-
-            $departure->away_team_logo = $imageName;
-
+        if ($request->hasFile('away_team_logo') && $request->file('away_team_logo')->isValid()) {
+            $data['away_team_logo'] = $this->uploadImage($request->file('away_team_logo'));
         }
 
-        $departure->save();
+        $departure->create($data);
 
         return redirect()->route('departures.index');
     }
@@ -96,12 +76,22 @@ class DepartureController extends Controller
      */
     public function update(Request $request, Departure $departure)
     {
-        $data = $request->validated();
+        $data = $request->all();
+
+        if ($request->hasFile('home_team_logo') && $request->file('home_team_logo')->isValid()) {
+            $this->deleteOldImage(public_path('img/logos/' . $departure->home_team_logo));
+            $data['home_team_logo'] = $this->uploadImage($request->file('home_team_logo'));
+        }
+
+        if ($request->hasFile('away_team_logo') && $request->file('away_team_logo')->isValid()) {
+            $this->deleteOldImage(public_path('img/logos/' . $departure->away_team_logo));
+            $data['away_team_logo'] = $this->uploadImage($request->file('away_team_logo'));
+        }
 
         $departure->update($data);
-
         return redirect()->route('departures.index');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -111,5 +101,20 @@ class DepartureController extends Controller
         $departure->delete();
 
         return redirect()->route('departures.index');
+    }
+
+    private function deleteOldImage($path)
+    {
+        if (file_exists($path)) {
+            unlink($path);
+        }
+    }
+
+    private function uploadImage($image)
+    {
+        $imageName = md5($image->getClientOriginalName() . strtotime('now')) . '.' . $image->extension();
+        $image->move(public_path('img/logos'), $imageName);
+
+        return $imageName;
     }
 }

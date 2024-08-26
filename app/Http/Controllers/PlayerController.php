@@ -30,24 +30,14 @@ class PlayerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Player $player)
+    public function store(Request $request)
     {
-        $player->name = $request->name;
-        $player->position = $request->position;
-        $player->number = $request->number;
+        $data = $request->all();
 
-        if($request->hasFile('image') && $request->file('image')->isValid()) {
+        $player = new Player($data);
 
-            $requestImage = $request->image;
-
-            $extension = $requestImage->extension();
-
-            $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
-
-            $requestImage->move(public_path('img/players'), $imageName);
-
-            $player->image = $imageName;
-
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $player->image = $this->uploadImage($request->file('image'));
         }
 
         $player->save();
@@ -78,6 +68,13 @@ class PlayerController extends Controller
     {
         $data = $request->all();
 
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            // Remove a imagem antiga se existir
+            $this->deleteOldImage($player->image);
+
+            // Faz o upload da nova imagem
+            $data['image'] = $this->uploadImage($request->file('image'));
+        }
         $player->update($data);
 
         return redirect()->route('players.index');
@@ -91,5 +88,20 @@ class PlayerController extends Controller
         $player->delete();
 
         return redirect()->route('players.index');
+    }
+
+    private function uploadImage($image)
+    {
+        $imageName = md5($image->getClientOriginalName() . microtime()) . '.' . $image->extension();
+        $image->move(public_path('img/players'), $imageName);
+
+        return $imageName;
+    }
+
+    private function deleteOldImage($imageName)
+    {
+        if ($imageName && file_exists(public_path('img/players/' . $imageName))) {
+            unlink(public_path('img/players/' . $imageName));
+        }
     }
 }

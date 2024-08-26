@@ -26,16 +26,16 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    route::resource('/players', PlayerController::class);
+    Route::resource('/players', PlayerController::class);
     Route::resource('/departures', DepartureController::class);
-    route::resource('/stats', PlayerStatController::class);
+//    Route::get('/departures/finished', [DepartureController::class, 'finished'])->name('departures.finished');
+    Route::get('/finished', [DepartureController::class, 'finished'])->name('departures.finished');
+    Route::resource('/stats', PlayerStatController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// useless routes
-// Just to demo sidebar dropdown links active states.
 Route::get('/buttons/text', function () {
     return view('buttons-showcase.text');
 })->middleware(['auth'])->name('buttons.text');

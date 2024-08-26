@@ -15,31 +15,6 @@
     </x-sidebar.link>
 
     <x-sidebar.dropdown
-        title="Buttons"
-        :active="Str::startsWith(request()->route()->uri(), 'buttons')"
-    >
-        <x-slot name="icon">
-            <x-heroicon-o-view-grid class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
-        </x-slot>
-
-        <x-sidebar.sublink
-            title="Text button"
-            href="{{ route('buttons.text') }}"
-            :active="request()->routeIs('buttons.text')"
-        />
-        <x-sidebar.sublink
-            title="Icon button"
-            href="{{ route('buttons.icon') }}"
-            :active="request()->routeIs('buttons.icon')"
-        />
-        <x-sidebar.sublink
-            title="Text with icon"
-            href="{{ route('buttons.text-icon') }}"
-            :active="request()->routeIs('buttons.text-icon')"
-        />
-    </x-sidebar.dropdown>
-
-    <x-sidebar.dropdown
         title="Jogadores"
     >
         <x-slot name="icon">
@@ -75,6 +50,34 @@
             title="Registrar Estatistícas"
             href="{{ route('stats.create') }}"
         />
+    </x-sidebar.dropdown>
+
+    <x-sidebar.dropdown
+        title="Partidas"
+    >
+        <x-slot name="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+            </svg>
+        </x-slot>
+
+        <x-sidebar.sublink
+            title="Mostrar partidas já concluidas"
+            href="{{ route('departures.index') }}"
+        />
+        <x-sidebar.sublink
+            title="Mostrar próximas partidas"
+            href="{{ route('departures.index') }}"
+        />
+        <x-sidebar.sublink
+            title="Mostrar Partidas"
+            href="{{ route('departures.index') }}"
+        />
+        <x-sidebar.sublink
+            title="Criar Partidas"
+            href="{{ route('departures.create') }}"
+        />
+
     </x-sidebar.dropdown>
 
 </x-perfect-scrollbar>

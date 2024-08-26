@@ -3,7 +3,7 @@
         <h1>Editar Jogadores</h1>
     </x-slot>
 
-    <form action="{{route('players.update', ['player' => $player->id ])}}" method="POST">
+    <form action="{{route('players.update', ['player' => $player->id ])}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="mt-10 grid gap-6 mb-6 md:grid-cols-2">
@@ -29,6 +29,14 @@
                     type="text"
                     name="position"
                     value="{{$player->position}}"
+                />
+            </div>
+            <div class="mb-6">
+                <x-form.label>Imagem</x-form.label>
+                <x-form.input-store
+                    type="file"
+                    name="image"
+                    value=""
                 />
             </div>
         </div>
