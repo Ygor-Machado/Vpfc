@@ -11,7 +11,7 @@ class PlayerStatStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class PlayerStatStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'goals' => 'required|integer',
+            'assists' => 'required|integer',
+            'yellow_cards' => 'required|integer',
+            'red_cards' => 'required|integer',
+            'matches_played' => 'required|integer',
         ];
     }
 }

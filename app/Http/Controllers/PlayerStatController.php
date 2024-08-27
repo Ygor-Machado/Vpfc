@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PlayerStatStoreRequest;
+use App\Http\Requests\PlayerStatUpdateRequest;
 use App\Http\Requests\PlayerUpdateRequest;
 use App\Models\Player;
 use App\Models\PlayerStat;
@@ -33,7 +34,7 @@ class PlayerStatController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PlayerStatStoreRequest $request)
     {
         $data = $request->all();
 
@@ -62,7 +63,7 @@ class PlayerStatController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, PlayerStat $stat)
+    public function update(PlayerStatUpdateRequest $request, PlayerStat $stat)
     {
         $data = $request->all();
 
