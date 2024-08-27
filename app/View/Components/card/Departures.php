@@ -2,11 +2,14 @@
 
 namespace App\View\Components\card;
 
+use Closure;
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class Departures extends Component
 {
     public $matchDate;
+
     public $location;
     public $homeTeamLogo;
     public $homeAbreviation;
@@ -14,8 +17,9 @@ class Departures extends Component
     public $awayTeamLogo;
     public $awayAbreviation;
     public $awayTeamScore;
+    public $departureId;
 
-    public function __construct($matchDate, $location, $homeTeamLogo, $homeAbreviation, $homeTeamScore, $awayTeamLogo, $awayAbreviation, $awayTeamScore)
+    public function __construct($matchDate, $location, $homeTeamLogo, $homeAbreviation, $homeTeamScore, $awayTeamLogo, $awayAbreviation, $awayTeamScore,$departureId)
     {
         $this->matchDate = $matchDate;
         $this->location = $location;
@@ -25,10 +29,11 @@ class Departures extends Component
         $this->awayTeamLogo = $awayTeamLogo;
         $this->awayAbreviation = $awayAbreviation;
         $this->awayTeamScore = $awayTeamScore;
+        $this->departureId = $departureId;
     }
 
-    public function render()
+    public function render(): View|Closure|string
     {
-        return view('components.departures');
+        return view('components.card.departures');
     }
 }
